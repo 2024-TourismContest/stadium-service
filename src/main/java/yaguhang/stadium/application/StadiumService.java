@@ -4,15 +4,18 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import yaguhang.stadium.domain.Stadium;
+import yaguhang.stadium.dto.StadiumDetailInfo;
 import yaguhang.stadium.dto.StadiumMapXY;
 import yaguhang.stadium.repository.StadiumRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class StadiumService {
     private final StadiumRepository stadiumRepository;
+
     @Transactional
     public void saveStadiums(List<Stadium> stadiums) {
         if (stadiumRepository.count() == 0) {
@@ -30,5 +33,11 @@ public class StadiumService {
                 .mapX(stadium.getX())
                 .mapY(stadium.getY())
                 .build();
+    }
+
+    public List<StadiumDetailInfo> getStadiumList() {
+        return stadiumRepository.findAll().stream()
+                .map(StadiumDetailInfo::from)
+                .collect(Collectors.toList());
     }
 }
