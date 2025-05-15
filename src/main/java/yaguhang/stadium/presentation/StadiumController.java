@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import yaguhang.stadium.application.StadiumService;
 import yaguhang.stadium.domain.Stadium;
+import yaguhang.stadium.dto.StadiumDetailInfo;
 import yaguhang.stadium.dto.StadiumInfo;
 import yaguhang.stadium.dto.StadiumMapXY;
 
@@ -80,8 +81,8 @@ public class StadiumController {
 
     @GetMapping("/stadiumList")
     @Operation(summary = "모든 구장 정보 반환", description = "DB에 저장된 모든 구장 정보를 반환합니다.")
-    public ResponseEntity<List<StadiumInfo>> stadiumList() {
-        List<StadiumInfo> stadiumList = stadiumService.getStadiumList();
+    public ResponseEntity<List<StadiumDetailInfo>> stadiumList() {
+        List<StadiumDetailInfo> stadiumList = stadiumService.getStadiumList();
         return ResponseEntity.ok(stadiumList);
     }
 }
